@@ -1,0 +1,41 @@
+# Jan Kośmiński 2023
+import clr
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+doc =  DocumentManager.Instance.CurrentDBDocument
+
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+clr.ImportExtensions(Revit.GeometryConversion)
+
+clr.AddReference("RevitAPI")
+from Autodesk.Revit.DB import *
+
+
+# The inputs to this node will be stored as a list in the IN variables.
+my_zone = UnwrapElement(IN[0])
+my_space = UnwrapElement(IN[1])
+my_param = IN[2]
+# Place your code below this line
+debuglist = []
+
+
+TransactionManager.Instance.EnsureInTransaction(doc)
+for z in my_zone:
+    zs = z.LookupParameter("Name")
+    zsv = zs.AsString()
+    for s in my_space:
+        ss = s.LookupParameter("Zone")
+        ssv = ss.AsString()
+        if zsv == ssv:
+            for p in my_param:
+                zpv = z.LookupParameter(p)
+                spv = s.LookupParameter(p)
+                spv.Set(zpv.AsString())
+                debuglist.append(s)
+TransactionManager.Instance.TransactionTaskDone()
+# Assign your output to the OUT variable.
+OUT = debuglist
