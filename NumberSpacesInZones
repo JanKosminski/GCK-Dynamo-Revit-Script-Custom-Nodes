@@ -1,0 +1,55 @@
+# Jan Kośmiński 2025
+
+import clr
+import sys
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB.Structure import *
+
+clr.AddReference('RevitAPIUI')
+from Autodesk.Revit.UI import *
+
+clr.AddReference('System')
+from System.Collections.Generic import List
+
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.GeometryConversion)
+clr.ImportExtensions(Revit.Elements)
+
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
+
+dataEnteringNode = IN
+rank_dict = IN[0]
+out = []
+spaces_md_list = UnwrapElement(IN[1])
+# Place your code below this line
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+for sublist in spaces_md_list:
+    temp_list =[]
+    for space in sublist:
+        a = space.ToDSType(False).Name
+        try:
+            temp_list.append(rank_dict[a])
+        except KeyError:
+            temp_list.append(666)
+    temp_areas = [x.Area for x in sublist]
+            
+    zipped = zip(temp_list, sublist, temp_areas)
+    sorted_temp = sorted(zipped, key=lambda x: (x[0], -x[2]))
+    x = 0
+    for i,j,k in sorted_temp:
+        x += 1;
+        param = j.LookupParameter("Number")
+        param.Set(f"{x}")
+        out.append((j, x))
+
+TransactionManager.Instance.TransactionTaskDone()
+OUT = ["Done", out]
