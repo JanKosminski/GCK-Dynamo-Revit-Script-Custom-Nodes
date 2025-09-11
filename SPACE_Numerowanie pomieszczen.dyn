@@ -1,0 +1,346 @@
+{
+  "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "SPACE_Numerowanie pomieszczen",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "List": {
+        "Key": "DSCore.List",
+        "Value": "DSCoreNodes.dll"
+      },
+      "DesignScript.Builtin.Dictionary": {
+        "Key": "DesignScript.Builtin.Dictionary",
+        "Value": "DesignScriptBuiltin.dll"
+      }
+    }
+  },
+  "Inputs": [
+    {
+      "Id": "21159a0b782141418196da74ce5cdbdd",
+      "Name": "Categories",
+      "Type": "selection",
+      "Type2": "dropdownSelection",
+      "Value": "OST_HVAC_Zones",
+      "Description": "All built-in categories.",
+      "SelectedIndex": 279
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "1cbafbf7-dfd0-4a94-83f2-e3c4e8da6da6",
+      "FunctionType": "Graph",
+      "Id": "8e2c17a2ce034da38622efcb75a7ba8a",
+      "NodeType": "FunctionNode",
+      "Inputs": [
+        {
+          "Id": "cbd0e7e416be4b49800360cbdeea94f1",
+          "Name": "HVAC_Zone",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1992b75200f447db96157c7639c5518a",
+          "Name": "Space_list",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Lists spaces from input HVAC Zones"
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.ElementsOfCategory, DSRevitNodesUI",
+      "Id": "ed2854f84e364495a74668d102b1475f",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "67a1416408504a55a20dc27c997d9a5f",
+          "Name": "Category",
+          "Description": "The Category",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ae4d214e2cb342f5a5482ed11deaf4b3",
+          "Name": "Elements",
+          "Description": "An element class.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Get all elements of the specified category from the model."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.Categories, DSRevitNodesUI",
+      "SelectedIndex": 279,
+      "SelectedString": "OST_HVAC_Zones",
+      "Id": "21159a0b782141418196da74ce5cdbdd",
+      "NodeType": "ExtensionNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "7a4f7559947849a19b327fec0fba06bc",
+          "Name": "Category",
+          "Description": "The selected Category.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All built-in categories."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "Id": "6fa4b83183ef4143bb52cf3d2bef8850",
+      "NodeType": "CodeBlockNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1e1de36552c74519b61c1dbadf8842be",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly",
+      "Code": "{\"Salon\" : 1, \"Salon z aneksem\" : 1, \"Usługa\" : 1, \"Pokój\" : 2, \"Sypialnia\" : 2, \"Zaplecze\" : 2, \"Kuchnia\" : 3, \"Przedsionek\" : 3, \"Łazienka\":4,  \"WC\":5, \"Garderoba\":6, \"Wnęka szafowa\":6, \"Wnęka garderobiana\":6, \"Wnęka\":6, \"Pralnia\":7, \"Korytarz\" : 8, \"Hol\" : 9, \"Balkon\" : 10, \"Taras\" : 10, \"Loggia\" : 10, \"Utwardzenie\" : 10, \"Przedogródek\" : 11, \"Ogródek\" : 11,\"Schowek\": 12 };"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "3674bd1d-1fed-4a3d-847c-95a8c1daacb7",
+      "FunctionType": "Graph",
+      "Id": "8e767d11207b471e90f66a7db1c48c9b",
+      "NodeType": "FunctionNode",
+      "Inputs": [
+        {
+          "Id": "d9daed5e4c1548e091de3b5c6e7e0e43",
+          "Name": "SpaceList",
+          "Description": "var[]..[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9f45bac15ad44651a7b6ac3dcba0ac11",
+          "Name": "RoomDictionary",
+          "Description": "Dictionary",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "70df79c885f345daadc7156cd688a420",
+          "Name": "Output",
+          "Description": "return value",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Numeruje Space wewnątrz lokali zgodnie z rangą podaną w formie Dictionary {\"Nazwa pomieszczenia<str>\" : <int>} oraz listy obiektów Space z node HVACZoneListSPaces"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "1992b75200f447db96157c7639c5518a",
+      "End": "d9daed5e4c1548e091de3b5c6e7e0e43",
+      "Id": "952dc1a53b254a238d78675e356947c5",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "ae4d214e2cb342f5a5482ed11deaf4b3",
+      "End": "cbd0e7e416be4b49800360cbdeea94f1",
+      "Id": "66bac7093fc047f08810925162ee4a05",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "7a4f7559947849a19b327fec0fba06bc",
+      "End": "67a1416408504a55a20dc27c997d9a5f",
+      "Id": "8651bfec4e7c45ae8687beab377478c8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "1e1de36552c74519b61c1dbadf8842be",
+      "End": "9f45bac15ad44651a7b6ac3dcba0ac11",
+      "Id": "38693ee518014441ae21c578f5518405",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [
+    "1cbafbf7-dfd0-4a94-83f2-e3c4e8da6da6",
+    "3674bd1d-1fed-4a3d-847c-95a8c1daacb7"
+  ],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "HVACZoneListSpaces.dyf",
+      "ReferenceType": "DYFFile",
+      "Nodes": [
+        "8e2c17a2ce034da38622efcb75a7ba8a"
+      ]
+    },
+    {
+      "Name": "NumberSpacesInZones.dyf",
+      "ReferenceType": "DYFFile",
+      "Nodes": [
+        "8e767d11207b471e90f66a7db1c48c9b"
+      ]
+    }
+  ],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.16",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "3.0",
+      "Data": {}
+    }
+  ],
+  "Author": "None provided",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.19.3.6394",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Background Preview",
+      "EyeX": -17.324485486328122,
+      "EyeY": 24.94002183105469,
+      "EyeZ": 54.303865636718747,
+      "LookX": 12.324485486328122,
+      "LookY": -13.94002183105469,
+      "LookZ": -62.303865636718747,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "8e2c17a2ce034da38622efcb75a7ba8a",
+        "Name": "HVACZoneListSpaces",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -2081.49834079838,
+        "Y": 259.75188935216528
+      },
+      {
+        "Id": "ed2854f84e364495a74668d102b1475f",
+        "Name": "All Elements of Category",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -2389.2471891298874,
+        "Y": 363.69310964147496
+      },
+      {
+        "Id": "21159a0b782141418196da74ce5cdbdd",
+        "Name": "Categories",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -2724.17454307196,
+        "Y": 363.69310964147496
+      },
+      {
+        "Id": "6fa4b83183ef4143bb52cf3d2bef8850",
+        "Name": "SPACE RANK DICTIONARY",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -3005.1047148652242,
+        "Y": 34.521303008718775
+      },
+      {
+        "Id": "8e767d11207b471e90f66a7db1c48c9b",
+        "Name": "NumberSpacesInZones",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": -1769.519141162797,
+        "Y": 86.290923492509535
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "874c6d4a6c584487bfcfb7344eea765c",
+        "Title": "",
+        "DescriptionText": "",
+        "IsExpanded": true,
+        "WidthAdjustment": 0.0,
+        "HeightAdjustment": 0.0,
+        "Nodes": [
+          "ed2854f84e364495a74668d102b1475f",
+          "21159a0b782141418196da74ce5cdbdd"
+        ],
+        "HasNestedGroups": false,
+        "Left": -2734.17454307196,
+        "Top": 297.69310964147496,
+        "Width": 611.92735394207284,
+        "Height": 198.0,
+        "FontSize": 30.0,
+        "GroupStyleId": "00000000-0000-0000-0000-000000000000",
+        "InitialTop": 363.69310964147496,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 56.0,
+        "Background": "#FF48B9FF"
+      }
+    ],
+    "X": 2581.8521037213377,
+    "Y": 141.23657884210013,
+    "Zoom": 0.839004576132177
+  }
+}

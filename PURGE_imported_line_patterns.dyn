@@ -1,0 +1,149 @@
+{
+  "Uuid": "1d9c37c7-1712-4bd7-8728-d8a00ff85eca",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "PURGE_imported_line_patterns",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"IMPORT\", \"IMPORT:\"];",
+      "Id": "b23f7ae96d694668af90b470221152c3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9ca3090b62ff4d2bb4a71a493b977ed9",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\nclr.AddReference(\"RevitAPI\")\r\nclr.AddReference(\"RevitServices\")\r\n\r\nfrom Autodesk.Revit.DB import *\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n# current document\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n# line pattern elements\r\nline_patterns = FilteredElementCollector(doc).OfClass(LinePatternElement).ToElements()\r\n# name and id pairs\r\nnameIdDict = {}\r\n# keyword - string\r\nkeywords = [IN[0]] if not isinstance(IN[0], list) else IN[0]\r\n# output (removed line pattern names)\r\nremoved = []\r\n# each line from line patterns\r\nfor i in line_patterns:\r\n# each word in keywords\r\n        for k in keywords:\r\n# keyword in line pattern name\r\n                if k in i.Name:\r\n# store in dictionary\r\n                        nameIdDict[i.Name] = i.Id\r\n\r\n# start transaction\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n# each name, id in dictionary\r\nfor name, id in list(nameIdDict.items()):\r\n# add to output result\r\n        removed.append(name)\r\n# delete from the document\r\n        doc.Delete(id)\r\n\r\n# transaction done\r\nTransactionManager.Instance.TransactionTaskDone()\r\n\r\n# output result\r\nOUT = removed",
+      "Engine": "CPython3",
+      "EngineName": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "aacb71e214974ecab81219dbcf984d07",
+      "Inputs": [
+        {
+          "Id": "61a35d103d514443b8a3ccabd45de85b",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cef31fc36c494f3db7112e3cf92ab416",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9ca3090b62ff4d2bb4a71a493b977ed9",
+      "End": "61a35d103d514443b8a3ccabd45de85b",
+      "Id": "212e79c589a1459fbb8b78e19dce8342",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Properties",
+      "Version": "2.16",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "3.0",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "None",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": false,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.16.1.2727",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Name": "Code Block",
+        "ShowGeometry": true,
+        "Id": "b23f7ae96d694668af90b470221152c3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 356.0,
+        "Y": 257.0
+      },
+      {
+        "Name": "Python Script",
+        "ShowGeometry": true,
+        "Id": "aacb71e214974ecab81219dbcf984d07",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 824.51637940468345,
+        "Y": 57.934260622832596
+      }
+    ],
+    "Annotations": [],
+    "X": -330.72222345196053,
+    "Y": 28.471016920802271,
+    "Zoom": 1.1052714751145456
+  }
+}
