@@ -1,0 +1,30 @@
+# Load the Python Standard and DesignScript Libraries
+import sys
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# The inputs to this node will be stored as a list in the IN variables.
+dataEnteringNode = IN
+zones_list = UnwrapElement(IN[0])
+spaces_list = UnwrapElement(IN[1])
+count_name_list = ["Pokój", "Sypialnia", "Salon", "Salon z aneksem"]
+out =[]
+# Place your code below this line
+for space_sub, zone in zip(spaces_list, zones_list):
+    i = 0
+    k_flag = False
+    for space in space_sub:
+       if space.LookupParameter("Name").AsString() in count_name_list:
+           i += 1
+       if space.LookupParameter("Name").AsString() == "Kuchnia":
+            k_flag = True
+            
+    if k_flag or i == 1:
+        out.append(f"M{i}")
+    else:
+        out.append(f"M{i}A")
+    
+    
+# Assign your output to the OUT variable.
+OUT = out
