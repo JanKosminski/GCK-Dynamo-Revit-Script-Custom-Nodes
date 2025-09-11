@@ -1,0 +1,21 @@
+# Load the Python Standard and DesignScript Libraries
+import sys
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# The inputs to this node will be stored as a list in the IN variables.
+dataEnteringNode = IN
+spaces = IN[0]
+areas = IN[1]
+out = []
+i=0;
+# Place your code below this line
+for area in areas:
+    sub = [];
+    for zone in spaces[i]:
+        sub.append(area)
+    i += 1
+    out.append(sub)
+# Assign your output to the OUT variable.
+OUT = out
