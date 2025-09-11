@@ -26,10 +26,12 @@ doc = DocumentManager.Instance.CurrentDBDocument
 uidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
 
 dataEnteringNode = IN
+# dictionary in format {(string) name : (int) rank}
 rank_dict = IN[0]
 out = []
+# list of spaces
 spaces_md_list = UnwrapElement(IN[1])
-# Place your code below this line
+
 TransactionManager.Instance.EnsureInTransaction(doc)
 
 for sublist in spaces_md_list:
