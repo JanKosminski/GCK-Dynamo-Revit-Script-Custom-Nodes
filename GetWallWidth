@@ -1,0 +1,23 @@
+# Jan Kośmiński 2023
+import clr
+#Import the Revit API
+clr.AddReference('RevitAPI')
+import Autodesk
+from Autodesk.Revit.DB import *
+
+#Start scripting here:
+
+walls = UnwrapElement(IN[0])
+
+output = []
+sub = []
+
+#grab sublist indexes
+for wall_list in walls:
+#iterate over sublists
+	for i in wall_list:
+		sub.append(UnitUtils.ConvertFromInternalUnits(i.Width, UnitTypeId.Millimeters))  
+	output.append(sub)
+	sub = []
+
+OUT = output
