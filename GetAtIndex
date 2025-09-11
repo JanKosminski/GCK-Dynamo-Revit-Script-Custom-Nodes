@@ -1,0 +1,27 @@
+# (c)Jan Kośmiński 2023
+# Load the Python Standard and DesignScript Libraries
+import sys
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# The inputs to this node will be stored as a list in the IN variables.
+inp_str = IN[0]
+s_ind = int(IN[1])
+amount = int(IN[2])
+
+def getchars(string, start, n):
+    x = ''
+    while n > 0:
+        x += string[start]
+        n -= 1
+        start += 1
+    return x
+# Place your code below this line
+out_str = []
+for s in inp_str:
+    out_str.append(getchars(s, s_ind, amount))
+    
+    
+# Assign your output to the OUT variable.
+OUT = out_str
