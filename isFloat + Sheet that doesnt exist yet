@@ -1,0 +1,35 @@
+# Load the Python Standard and DesignScript Libraries
+import sys
+import clr
+import re
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# The inputs to this node will be stored as a list in the IN variables.
+i_str = IN[0]
+i_list = IN[1]
+exclude_list = IN[2]
+x = []
+a = 0
+# Place your code below this line
+
+def isfloat(num):
+    try:
+        float(num)
+        return True
+    except ValueError:
+        return False
+        
+def is_number_or_number_with_letter(s):
+    # Matches: 1.1, 1.10, 1.11a, 4.15c, etc.
+    return bool(re.match(r'^\d+(\.\d+)?[a-zA-Z]?$', s))        
+
+for i in i_str:
+    try:
+        if not(i in exclude_list) and is_number_or_number_with_letter(i):  
+            x.append(i_list[a])
+        a += 1
+    except IndexError:
+        a += 1
+# Assign your output to the OUT variable.
+OUT = x
