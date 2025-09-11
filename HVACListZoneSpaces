@@ -1,0 +1,36 @@
+# Jan Kośmiński 2023
+import clr
+clr.AddReference('RevitAPI')
+clr.AddReference('RevitServices')
+import RevitServices
+import Autodesk
+from Autodesk.Revit.DB import *
+
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+doc = DocumentManager.Instance.CurrentDBDocument
+
+# Import ToDSType  (bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+# Adds ToProtoType, ToRevitType geometry conversion extension methods to objects
+clr.ImportExtensions(Revit.GeometryConversion)
+# Import Element wrapper extension methods
+clr.ImportExtensions(Revit.Elements)
+from Revit.Elements import *
+
+zones=UnwrapElement(IN[0])
+
+if not hasattr(zones, '__iter__'):
+    zones = [zones]
+
+output=[]
+for i in zones:
+        spaceSet = []
+        spaces = i.Spaces
+        for j in spaces:
+                spaceSet.append(j)
+        output.append(spaceSet)
+
+#Assign your output to the OUT variable.
+OUT = output
