@@ -13,6 +13,7 @@ x = []
 a = 0
 # Place your code below this line
 
+# obsolete function 
 def isfloat(num):
     try:
         float(num)
@@ -21,7 +22,7 @@ def isfloat(num):
         return False
         
 def is_number_or_number_with_letter(s):
-    # Matches: 1.1, 1.10, 1.11a, 4.15c, etc.
+    # regex match for float with non numeric suffix
     return bool(re.match(r'^\d+(\.\d+)?[a-zA-Z]?$', s))        
 
 for i in i_str:
